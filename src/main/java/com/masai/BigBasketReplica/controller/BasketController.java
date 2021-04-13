@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.Inet4Address;
 import java.util.List;
 
-@Controller
+@RestController
 public class BasketController {
 
     @Autowired
@@ -21,18 +21,18 @@ public class BasketController {
 
     /**
      * View the Item list of the User with userId
-     * @param userId
+     * @param
      * @return
      */
-    @GetMapping("/basket/{userid}")
-    public List<Basket> getBasketByUser(@PathVariable("userId") Integer userId){
+    @GetMapping("/basket")
+    public List<Basket> getBasketByUser(){
 //        Users dummyUser = new Users(1);
 //
 //        List<Basket> basketOfUser = basketServices.listBasketItems(dummyUser)
 ////        model.addAttribute("BasketItems", basketOfUser);
 ////        model.addAttribute("pageTitle","Shopping cart");
 ////        return "basket";
-            List<Basket> BasketByUser = basketServices.getBasketByUser(userId);
+            List<Basket> BasketByUser = basketServices.getBasketByUser(1);
             return BasketByUser;
     }
 
