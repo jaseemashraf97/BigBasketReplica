@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.management.Query;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,9 +34,12 @@ public class BasketServices {
      * @param userId
      * @return
      */
-    public List<Basket> getBasketByUser(Integer userId) {
-
-        return basketRepository.findByUsers(userRepository.findById(userId).get());
+    public GenericDto getBasketByUser(Integer userId, HttpServletResponse response) {
+        GenericDto genericDto = new GenericDto();
+        genericDto.setData(basketRepository.findByUsers(userRepository.findById(userId).get()));
+        genericDto.setMessage("Fetched data successfully");
+        response.setStatus(200);
+        return genericDto;
     }
 
 
