@@ -1,9 +1,12 @@
 package com.masai.BigBasketReplica.controller;
 
+import com.masai.BigBasketReplica.Dto.GenericDto;
 import com.masai.BigBasketReplica.entity.Basket;
+import com.masai.BigBasketReplica.entity.Items;
 import com.masai.BigBasketReplica.entity.Users;
 import com.masai.BigBasketReplica.repository.UserRepository;
 import com.masai.BigBasketReplica.service.BasketServices;
+import org.apache.catalina.User;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,25 +27,27 @@ public class BasketController {
      * @param
      * @return
      */
-    @GetMapping("/basket")
-    public List<Basket> getBasketByUser(){
+    @GetMapping("/basket/{userId}")
+    public GenericDto getBasketByUser(@PathVariable("userId") Integer userId, HttpServletResponse response){
 //        Users dummyUser = new Users(1);
 //
 //        List<Basket> basketOfUser = basketServices.listBasketItems(dummyUser)
 ////        model.addAttribute("BasketItems", basketOfUser);
 ////        model.addAttribute("pageTitle","Shopping cart");
 ////        return "basket";
-            List<Basket> BasketByUser = basketServices.getBasketByUser(1);
+            GenericDto BasketByUser = basketServices.getBasketByUser(userId,response);
             return BasketByUser;
     }
 
     /**
      * User can add One item at a time with its quantity mentioned.
-     * @param basket
+     * @param userId
+     * @param itemId
      * @return
      */
-    @PostMapping("/basket/{userId}")
-    public Basket addItemsToBasketByUser(@RequestBody Basket basket,@PathVariable("userId") Integer userId)
+    @PostMapping("/basket/{userId}/{itemId}")
+    public Basket addItemsToBasketByUser(@PathVariable("userId") Integer userId,
+                                         @PathVariable("itemId") Integer itemId)
     {
         Basket basket1 = basketServices.addItemsToBasketByUser(basket,userId);
         return basket1;
@@ -51,13 +56,15 @@ public class BasketController {
 
     /**
      * Allows the user to modify the quantity of an existing Item in the basket
-     * @param basket
+     * @param userId
      * @return
      */
-    @PutMapping("/basket/{userId}")
-    public Basket updateQuantityOfItemInBasket(@RequestBody Basket basket, @PathVariable("userId")Integer userId)
+    @PutMapping("/basket/{userId}/{itemId}")
+    public Basket updateQuantityOfItemInBasket(@PathVariable("userId")Integer userId,@PathVariable("itemId") Integer itemId)
     {
-        Basket basket1 = basketServices.updateQuantityOfItemInBasket(basket,userId);
+        //Items items = new Items();
+        //Users users =new Users();
+        Basket basket1 = basketServices.updateQuantityOfItemInBasket(userId,itemId);
         return basket1;
     }
 

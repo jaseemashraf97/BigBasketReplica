@@ -1,6 +1,8 @@
 package com.masai.BigBasketReplica.service;
 
+import com.masai.BigBasketReplica.Dto.GenericDto;
 import com.masai.BigBasketReplica.entity.Basket;
+import com.masai.BigBasketReplica.entity.Items;
 import com.masai.BigBasketReplica.entity.Users;
 import com.masai.BigBasketReplica.repository.BasketRepository;
 import com.masai.BigBasketReplica.repository.ItemsRepository;
@@ -39,10 +41,12 @@ public class BasketServices {
 
     /**
      * Add an item with mentioning the quantity to the basket by User.
-     * @param basket
+     * @param items
+     * @param users
+     * @param quantity
      * @return
      */
-    public Basket addItemsToBasketByUser(Basket basket, Integer userId)
+    public Basket addItemsToBasketByUser(Items items,Users users, Integer quantity)
     {
         Users users= userRepository.findById(userId).get();
         basket.setUsers(users);
@@ -52,14 +56,15 @@ public class BasketServices {
 
     /**
      * Update the quantity of an existing item from basket
-     * @param basket
      * @param userId
+     * @param itemId
      * @return
      */
-    public Basket updateQuantityOfItemInBasket(Basket basket,Integer userId)
+    public Basket updateQuantityOfItemInBasket(Integer userId,Integer itemId)
     {
-        Basket basket1 = basketRepository.findBasketByItemsAndUsers(userRepository.findById(userId).get(),basket.getItems());
-        basket1.setQuantity(basket.getQuantity());
+        Basket basket = basketRepository.findBasketByItemsAndUsers(userRepository.findById(userId).get(),itemsRepository.findById(itemId).get());
+        basket.setQuantity(basket.getQuantity()+1);
+        Basket basket1 = basketRepository.save(basket);
         return basket1;
     }
 
