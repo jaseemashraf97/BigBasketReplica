@@ -48,8 +48,14 @@ public class BasketServices {
      */
     public Basket addItemsToBasketByUser(Items items,Users users, Integer quantity)
     {
-        Users users= userRepository.findById(userId).get();
+        //users,items.q = 1; - in the fun arg
+        Basket basket = new Basket();
+        basket.setQuantity(1);
         basket.setUsers(users);
+        basket.setItems(items);
+//        Users users= userRepository.findById(userId).get();
+//        basket.setUsers(users);
+//        basket.setItems();
         Basket basket1 = basketRepository.save(basket);
         return basket1;
     }

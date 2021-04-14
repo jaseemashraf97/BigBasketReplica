@@ -49,7 +49,13 @@ public class BasketController {
     public Basket addItemsToBasketByUser(@PathVariable("userId") Integer userId,
                                          @PathVariable("itemId") Integer itemId)
     {
-        Basket basket1 = basketServices.addItemsToBasketByUser(basket,userId);
+        /** Object - users = RestFull for userId
+            Object - items =    RestFull itemId
+            Create and assign to  the objects below
+         */
+        Items items = new Items();
+        Users users =new Users();
+        Basket basket1 = basketServices.addItemsToBasketByUser(items,users,1);
         return basket1;
     }
 
