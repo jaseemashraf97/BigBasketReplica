@@ -3,6 +3,8 @@ package com.masai.BigBasketReplica.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +22,10 @@ public class Orders {
     @ManyToOne
     @JoinColumn(name="userId")
     Users users;
-    private String placedDate;
-    private String placedTime;
+    private LocalDate placedDate;
+    private LocalTime placedTime;
     private String status;
-    private String deliveredTime;
+    private LocalTime deliveredTime;
     private Float totalPrice;
     private String modeOfPay;
     private String discountType;
