@@ -1,10 +1,8 @@
 package com.masai.BigBasketReplica.service;
 
-import com.masai.BigBasketReplica.Dto.GenericDto;
 import com.masai.BigBasketReplica.entity.Basket;
 import com.masai.BigBasketReplica.entity.Orders;
 import com.masai.BigBasketReplica.entity.OrdersDetails;
-import com.masai.BigBasketReplica.entity.Users;
 import com.masai.BigBasketReplica.repository.BasketRepository;
 import com.masai.BigBasketReplica.repository.OrderDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +19,6 @@ public class OrderDetailsService {
     public Float ProceedItemsForCheckOut(Users users, Orders orders)
     {
         List<Basket> basketList= basketRepository.findByUsers(users);
-        float totalPrice;
-        totalPrice=0;
-
         for (int i=0;i<basketList.size();i++)
         {
             OrdersDetails ordersDetails=new OrdersDetails();
@@ -35,6 +30,6 @@ public class OrderDetailsService {
             orderDetailsRepository.save(ordersDetails);
             basketRepository.delete(basketList.get(i));
         }
-        return totalPrice;
+    
     }
 }

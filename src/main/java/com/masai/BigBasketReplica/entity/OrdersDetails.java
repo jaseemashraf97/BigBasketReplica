@@ -22,5 +22,5 @@ public class OrdersDetails {
     @JoinColumn(name = "itemsId")
     private Items items;
     private Integer itemQuantity;
-    private Integer pricePerItem;
+    private float pricePerItem;
 }

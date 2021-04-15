@@ -2,19 +2,11 @@ package com.masai.BigBasketReplica.controller;
 
 import com.masai.BigBasketReplica.Dto.GenericDto;
 import com.masai.BigBasketReplica.entity.Basket;
-import com.masai.BigBasketReplica.entity.Items;
-import com.masai.BigBasketReplica.entity.Users;
-import com.masai.BigBasketReplica.repository.UserRepository;
 import com.masai.BigBasketReplica.service.BasketServices;
-import org.apache.catalina.User;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import java.net.Inet4Address;
 import java.util.List;
 
 @RestController
@@ -40,25 +32,17 @@ public class BasketController {
             return BasketByUser;
     }
 
-    /**
-     * User can add One item at a time with its quantity mentioned.
-     * @param userId
-     * @param itemId
-     * @return
-     */
-    @PostMapping("/basket/{userId}/{itemId}")
-    public Basket addItemsToBasketByUser(@PathVariable("userId") Integer userId,
-                                         @PathVariable("itemId") Integer itemId)
+
+    @GetMapping("basket/{userId}/totalprice")
+    public GenericDto getTotalPriceBeforeCheckout(@PathVariable("userId") Integer userId)
     {
-        /** Object - users = RestFull for userId
-            Object - items =    RestFull itemId
-            Create and assign to  the objects below
-         */
-        Items items = new Items();
-        Users users =new Users();
-        Basket basket1 = basketServices.addItemsToBasketByUser(items,users,1);
-        return basket1;
+        GenericDto totalPrice = basketServices.getTotalPrice(userId);
+        return totalPrice;
     }
+
+
+
+
 
 
     /**

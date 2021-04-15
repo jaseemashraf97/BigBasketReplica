@@ -1,11 +1,7 @@
 package com.masai.BigBasketReplica.controller;
 
 import com.masai.BigBasketReplica.Dto.GenericDto;
-import com.masai.BigBasketReplica.entity.Address;
-import com.masai.BigBasketReplica.entity.Items;
-import com.masai.BigBasketReplica.entity.Users;
 import com.masai.BigBasketReplica.service.OrdersService;
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

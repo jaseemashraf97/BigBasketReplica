@@ -1,11 +1,8 @@
 package com.masai.BigBasketReplica.service;
 
 import com.masai.BigBasketReplica.Dto.GenericDto;
-import com.masai.BigBasketReplica.entity.Address;
 import com.masai.BigBasketReplica.entity.Orders;
-import com.masai.BigBasketReplica.entity.Users;
 import com.masai.BigBasketReplica.repository.OrderRepository;
-import com.masai.BigBasketReplica.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,9 +37,8 @@ public class OrdersService {
         orders.setPaymentStatus("Incomplete");
         orders.setAddress(address);
         orders.setTotalPrice(totalPrice);
-        Orders orders1 = orderRepository.save(orders);
         GenericDto genericDto = new GenericDto();
-        genericDto.setData(orders1);
+        genericDto.setData(orderRepository.save(orders));
         return genericDto;
 
     }
