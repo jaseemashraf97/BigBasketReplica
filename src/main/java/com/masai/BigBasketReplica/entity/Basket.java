@@ -21,28 +21,12 @@ public class Basket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer basketId;
     private Integer quantity;
+    private Integer userId;
+    private Integer itemId;
 
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    private Users users;
-
-    @ManyToOne
-    @JoinColumn(name="itemId")
-    private Items items;
-
-
-    public Integer getUserId(){
-        return this.users.getUserId();
+    public Basket(Integer quantity, Integer userId, Integer itemId) {
+        this.quantity = quantity;
+        this.userId = userId;
+        this.itemId = itemId;
     }
-    public Integer getItemId()
-    {
-        return this.items.getItemsId();
-    }
-
-
-
-
-
-
-
 }

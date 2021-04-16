@@ -6,10 +6,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BasketRepository extends JpaRepository <Basket, Integer>{
-    List<Basket> findByUsers(Users users);
-    Basket findBasketByItemsAndUsers(Users users, Items items);
 
+    @Query(value = "select * from Basket where user_Id=:userId and item_Id=:itemId", nativeQuery = true)
+      Basket findBasketByItemAndUser(Integer userId,Integer itemId);
+
+    @Query(value = "select * from Basket where user_Id=:userId",nativeQuery = true)
+    List<Basket> findAllByUser(Integer userId);
+
+    @Query(value = "delete from Basket where user_Id=:userId",nativeQuery = true)
+    void deleteByUser(Integer userId);
 }

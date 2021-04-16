@@ -1,6 +1,5 @@
 package com.masai.BigBasketReplica.controller;
 
-import com.masai.BigBasketReplica.Dto.GenericDto;
 import com.masai.BigBasketReplica.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
