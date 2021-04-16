@@ -1,6 +1,7 @@
 package com.masai.BigBasketReplica.service;
 
 import com.masai.BigBasketReplica.Dto.GenericDto;
+import com.masai.BigBasketReplica.Dto.ItemDto;
 import com.masai.BigBasketReplica.entity.Basket;
 import com.masai.BigBasketReplica.repository.BasketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,86 +14,40 @@ import java.util.List;
 public class BasketServices {
     @Autowired
     BasketRepository basketRepository;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    ItemsRepository itemsRepository;
-//    public List<Basket> listBasketItems(Integer UserId)
-//    {
-//        return basketRepository.fin;
-//    }
+
+    public List<ItemDto> getBasketByUser(Integer userId, HttpServletResponse response) {
+        // this will get all the item from basket
+        List<Basket> basketList = basketRepository.findAllByUser(userId);
+         // find all the details from item table by making a rest call to Item microservice
+            //restFull call goes here
+        // return the list of ItemDto;
+        response.setStatus(200);
+        return null;
+    }
+
+    public Basket addItemsToBasket(Integer userId,Integer itemId, Integer quantity, HttpServletResponse response)
+    {
+        Basket basket = new Basket(quantity,userId,itemId);
+        response.setStatus(201);
+        return basketRepository.save(basket);
+    }
 
 
-    /**
-     * Returns all the items added to basket by a user.
-     * @param userId
-     * @return
-     */
-    public GenericDto getBasketByUser(Integer userId, HttpServletResponse response) {
+    public Basket updateQuantityOfItemInBasket(Integer userId,Integer itemId, Integer quantity,
+                                               HttpServletResponse response)
+    {
+        Basket basket = basketRepository.findBasketByItemAndUser(userId,itemId);
+        basket.setQuantity(basket.getQuantity()+quantity);
+        response.setStatus(200);
+        return basketRepository.save(basket);
+    }
+
+
+    public GenericDto deleteBasketByUser(Integer userId, HttpServletResponse response) {
         GenericDto genericDto = new GenericDto();
-        genericDto.setData(basketRepository.findByUsers(userRepository.findById(userId).get()));
-        genericDto.setMessage("Fetched data successfully");
+        genericDto.setMessage("Basket deleted");
+        basketRepository.deleteByUser(userId);
         response.setStatus(200);
         return genericDto;
-    }
-
-
-    /**
-     * Add an item with mentioning the quantity to the basket by User.
-     * @param items
-     * @param users
-     * @param quantity
-     * @return
-     */
-    public Basket addItemsToBasketByUser(Items items,Users users, Integer quantity)
-    {
-        //users,items.q = 1; - in the fun arg
-        Basket basket = new Basket();
-        basket.setQuantity(1);
-        basket.setUsers(users);
-        basket.setItems(items);
-//        Users users= userRepository.findById(userId).get();
-//        basket.setUsers(users);
-//        basket.setItems();
-        Basket basket1 = basketRepository.save(basket);
-        return basket1;
-    }
-
-    /**
-     * Update the quantity of an existing item from basket
-     * @param userId
-     * @param itemId
-     * @return
-     */
-    public Basket updateQuantityOfItemInBasket(Integer userId,Integer itemId)
-    {
-        Basket basket = basketRepository.findBasketByItemsAndUsers(userRepository.findById(userId).get(),itemsRepository.findById(itemId).get());
-        basket.setQuantity(basket.getQuantity()+1);
-        Basket basket1 = basketRepository.save(basket);
-        return basket1;
-    }
-
-
-    /**
-     * Deletes the selected item from the basket and returns the new basket list of the selected User.
-     * @param userId
-     * @param itemId
-     * @return
-     */
-    public List<Basket> deleteOneItemFromBasket(Integer userId,Integer itemId)
-    {
-        Basket basket = basketRepository.findBasketByItemsAndUsers(userRepository.findById(userId).get(),itemsRepository.findById(itemId).get());
-        basketRepository.delete(basket);
-        return basketRepository.findByUsers(userRepository.findById(userId).get());
-    }
-
-    public GenericDto getTotalPrice(Integer userId)
-    {
-        //logic for finding the totalPrice
-        float totalPrice=0;
-        GenericDto price = new GenericDto();
-        price.setData(price);
-        price.setMessage("total Price of all the items together fetched");
-        return price;
     }
 }

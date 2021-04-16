@@ -3,7 +3,6 @@ package com.masai.BigBasketReplica.Dto;
 import lombok.Data;
 
 @Data
-public class GenericDto<T> {
-    private T data;
+public class GenericDto {
     private String message;
 }

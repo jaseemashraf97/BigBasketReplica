@@ -1,6 +1,5 @@
 package com.masai.BigBasketReplica.service;
 
-import com.masai.BigBasketReplica.Dto.GenericDto;
 import com.masai.BigBasketReplica.entity.Orders;
 import com.masai.BigBasketReplica.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
