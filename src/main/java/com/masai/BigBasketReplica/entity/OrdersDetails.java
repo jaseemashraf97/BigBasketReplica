@@ -18,9 +18,7 @@ public class OrdersDetails {
     @ManyToOne
     @JoinColumn(name = "orderId")
     private Orders orders;
-    @ManyToOne
-    @JoinColumn(name = "itemsId")
-    private Items items;
+    private Integer itemId;
     private Integer itemQuantity;
     private float pricePerItem;
 }

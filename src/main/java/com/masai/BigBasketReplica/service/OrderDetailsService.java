@@ -16,20 +16,20 @@ public class OrderDetailsService {
     BasketRepository basketRepository;
     @Autowired
     OrderDetailsRepository orderDetailsRepository;
-    public Float ProceedItemsForCheckOut(Users users, Orders orders)
+    public String ProceedItemsForCheckOut(Integer userId, Orders orders)
     {
-        List<Basket> basketList= basketRepository.findByUsers(users);
+        List<Basket> basketList= basketRepository.findBasketsByUserId(userId);
         for (int i=0;i<basketList.size();i++)
         {
             OrdersDetails ordersDetails=new OrdersDetails();
             ordersDetails.setOrders(orders);
-            ordersDetails.setItems(basketList.get(i).getItems());
+            ordersDetails.setItemId(basketList.get(i).getItemId());
             ordersDetails.setItemQuantity(basketList.get(i).getQuantity());
             //Item price shud be accessed using items micro services
             ordersDetails.setPricePerItem(10);
             orderDetailsRepository.save(ordersDetails);
             basketRepository.delete(basketList.get(i));
         }
-    
+        return "items moved from basket successfully";
     }
 }

@@ -22,10 +22,8 @@ public class OrdersController {
     @PostMapping("/orders/{userId}/{addressId}/{totalPrice}")
     public GenericDto confirmOrder(@PathVariable("userId") Integer userId,@PathVariable("addressId") Integer addressId,@PathVariable("totalPrice") Float totalPrice)
     {
-        //Users and address object to retrived of the particular
-        Users users = new Users();
-        Address address= new Address();
-        GenericDto orders = ordersService.confirmOrder(users,address, totalPrice);
+
+        GenericDto orders = ordersService.confirmOrder(userId,addressId, totalPrice);
         return orders;
     }
 }

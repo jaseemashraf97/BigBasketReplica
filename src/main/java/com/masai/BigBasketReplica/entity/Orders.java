@@ -19,9 +19,7 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer orderId;
-    @ManyToOne
-    @JoinColumn(name="userId")
-    Users users;
+    private Integer userId;
     private LocalDate placedDate;
     private LocalTime placedTime;
     private String status;
@@ -30,9 +28,7 @@ public class Orders {
     private String modeOfPay;
     private String discountType;
     private String paymentStatus;
-    @ManyToOne()
-    @JoinColumn(name = "addressId")
-    Address address;
+    private Integer addressId;
     @OneToMany(mappedBy = "orders")
     private List<OrdersDetails> ordersDetailsList = new ArrayList<>();
 }

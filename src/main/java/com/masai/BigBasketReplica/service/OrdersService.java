@@ -13,29 +13,27 @@ import java.time.LocalTime;
 public class OrdersService {
     @Autowired
     private OrderRepository orderRepository;
-    @Autowired
-    UserRepository userRepository;
 
 
     public GenericDto getOrderDetails(Integer userId)
     {
         GenericDto orders = new GenericDto();
-        orders.setData(orderRepository.findOrdersByUsers(userRepository.findById(userId).get()));
+        orders.setData(orderRepository.findOrdersByUserId(userId));
         orders.setMessage("Orders fetch completed");
         return orders;
     }
 
-    public GenericDto confirmOrder(Users users, Address address,Float totalPrice)
+    public GenericDto confirmOrder(Integer userId,Integer addressId,Float totalPrice)
     {
         Orders orders = new Orders();
-        orders.setUsers(users);
+        orders.setUserId(userId);
         orders.setPlacedDate(LocalDate.now());
         orders.setPlacedTime(LocalTime.now());
         orders.setStatus("Incomplete");
         orders.setDeliveredTime(orders.getPlacedTime().plusHours(3));
         orders.setModeOfPay("Cash on Delivery");
         orders.setPaymentStatus("Incomplete");
-        orders.setAddress(address);
+        orders.setAddressId(addressId);
         orders.setTotalPrice(totalPrice);
         GenericDto genericDto = new GenericDto();
         genericDto.setData(orderRepository.save(orders));
