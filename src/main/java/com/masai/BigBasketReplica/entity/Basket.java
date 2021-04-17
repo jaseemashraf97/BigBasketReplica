@@ -1,5 +1,7 @@
 package com.masai.BigBasketReplica.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,19 +15,18 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "users","items"})
 public class Basket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer basketId;
-
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    private Users users;
-
-    @ManyToOne
-    @JoinColumn(name="itemId")
-    private Items items;
     private Integer quantity;
+    private Integer userId;
+    private Integer itemId;
 
-
+    public Basket(Integer quantity, Integer userId, Integer itemId) {
+        this.quantity = quantity;
+        this.userId = userId;
+        this.itemId = itemId;
+    }
 }

@@ -1,8 +1,6 @@
 package com.masai.BigBasketReplica;
 
 import com.masai.BigBasketReplica.entity.Basket;
-import com.masai.BigBasketReplica.entity.Items;
-import com.masai.BigBasketReplica.entity.Users;
 import com.masai.BigBasketReplica.repository.BasketRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +8,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
-
-import java.util.List;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
