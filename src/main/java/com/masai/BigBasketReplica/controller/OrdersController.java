@@ -1,30 +1,40 @@
 package com.masai.BigBasketReplica.controller;
 
+import com.masai.BigBasketReplica.Dto.AddressDTO;
+import com.masai.BigBasketReplica.Dto.GenericDto;
+import com.masai.BigBasketReplica.Dto.ItemDto;
 import com.masai.BigBasketReplica.service.OrdersService;
+import com.sun.tools.javac.jvm.Gen;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 public class OrdersController {
     @Autowired
     OrdersService ordersService;
-    @GetMapping("/orders/{userId}")
-    public GenericDto orderHistory(@PathVariable("userId") Integer userId)
-    {
-        GenericDto orders = ordersService.getOrderDetails(userId);
-        return orders;
-    }
+ // /orders/{userId}
 
-    @PostMapping("/orders/{userId}/{addressId}/{totalPrice}")
-    public GenericDto confirmOrder(@PathVariable("userId") Integer userId,@PathVariable("addressId") Integer addressId,@PathVariable("totalPrice") Float totalPrice)
-    {
-        //Users and address object to retrived of the particular
-        Users users = new Users();
-        Address address= new Address();
-        GenericDto orders = ordersService.confirmOrder(users,address, totalPrice);
-        return orders;
-    }
+
+    @GetMapping("/order/{userId}")
+//    public List<AddressDTO> getAllAddress(@PathVariable("userId") Integer userId){
+//        return ordersService.getAllAddress(userId);
+//    }
+
+
+    //Afsan-------
+   @PostMapping("/order/{userId}/address/{addressId}")
+   public GenericDto placeOrder(@PathVariable("userId") Integer userId,
+                                   @PathVariable("addressId") Integer addressId, HttpServletResponse response){
+        return ordersService.placeOrder(userId,addressId,response);
+   }
+
+
+
+   @DeleteMapping("/order/{orderId}/cancelorder")
+   public GenericDto cancelOrder(@PathVariable("orderId") Integer orderId){
+        return ordersService.cancelOrder(orderId);
+   }
+
 }

@@ -18,21 +18,23 @@ import java.util.List;
 public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer orderId;
-    @ManyToOne
-    @JoinColumn(name="userId")
-    Users users;
+    private Integer orderId;
+
+    private Integer userId;
     private LocalDate placedDate;
     private LocalTime placedTime;
-    private String status;
+    private String deliveredStatus;
+    private LocalDate deliveredDate;
     private LocalTime deliveredTime;
-    private Float totalPrice;
+    private Double totalPrice;
     private String modeOfPay;
-    private String discountType;
     private String paymentStatus;
-    @ManyToOne()
-    @JoinColumn(name = "addressId")
-    Address address;
+    private Integer deliveryAddress;
+
     @OneToMany(mappedBy = "orders")
     private List<OrdersDetails> ordersDetailsList = new ArrayList<>();
+
+    public void setOrderDetailList(OrdersDetails ordersDetails){
+        this.ordersDetailsList.add(ordersDetails);
+    }
 }

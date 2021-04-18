@@ -9,6 +9,17 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+////
+//Orders
+//
+//        checkOut
+//        get      ->               <address>                   /orders/{userId}
+//        get all the address from the user details table than return it
+//
+//        POST                                                        /orders/{userId}/{addressId}
+//        order id created
+//        in the param, we will sent the selected address by user
+//        move all the items from the basket to orderDetails table and connect to order id  return order completed and payment done.
 
 // tasks remaining
 // - orders
